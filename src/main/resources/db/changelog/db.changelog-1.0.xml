@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="anna.t" id="202103180000">
+        <preConditions>
+            <not>
+                <tableExists tableName="comment"/>
+            </not>
+        </preConditions>
+
+        <comment>Создание таблицы комментариев</comment>
+
+        <createTable tableName="comment">
+            <column name="id" type="varchar">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="parent_id" type="varchar"/>
+            <column name="video_id" type="varchar"/>
+            <column name="published_at" type="timestamp"/>
+            <column name="text_display" type="varchar"/>
+            <column name="text_original" type="varchar"/>
+            <column name="updated_at" type="timestamp"/>
+            <column name="like_count" type="bigint"/>
+            <column name="author_channel_url" type="varchar"/>
+            <column name="author_display_name" type="varchar"/>
+            <column name="author_profile_image_url" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

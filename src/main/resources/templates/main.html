@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+
+    <title>YouTube parser</title>
+</head>
+<body>
+
+<div class="container row">
+    <div style="flex: 0.5">
+        <form th:action="@{/save}" method="post">
+            <div style="margin: 0 auto">
+                <label>Count of comments in the database: <span style="color: #52DC79" th:text="${commentCount}"></span></label>
+            </div>
+            <div>
+                <hr/>
+            </div>
+            <div class="form-group">
+                <label for="url">Please enter a url to YouTube video: </label>
+                <input type="text"
+                       id="url"
+                       name="url"
+                       class="form-control"
+                       placeholder="url"
+                       autofocus="autofocus"
+                       th:value="${url}" />
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div>
+                        <input type="submit"
+                               class="btn btn-primary"
+                               style="background: black; display: flex; margin: 0 auto"
+                               value="Save to database" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr/>
+            </div>
+        </form>
+    </div>
+
+    <div style="flex: 0.5">
+        <form th:action="@{/find}" method="get" th:if="${commentCount != 0}">
+            <div class="form-group">
+                <div>
+                    <div>
+                        <input type="submit"
+                               class="btn btn-primary"
+                               style="background: black; display: flex; margin: 0 auto"
+                               value="Find a random comment in the database" />
+                    </div>
+                </div>
+                <div class="comment" th:if="${comment != null}">
+                    <img style="max-width: 40px; max-height: 40px;" th:src="${comment.getAuthorProfileImageUrl()}" alt="Photo of author"/>
+                    <div class="comment-body">
+                        <a class="comment-link" th:href="${comment.getAuthorChannelUrl()}"
+                           th:text="${comment.getAuthorDisplayName()}"></a>
+                        <div th:utext="${comment.getTextDisplay()}"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

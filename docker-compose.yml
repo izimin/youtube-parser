@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  postgres-youtube-parser:
+    image: postgres:11-alpine
+    container_name: postgres-youtube-parser
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "youtube"
+    ports:
+      - "5454:5432"
+
+  youtube-parser:
+    build: .
+    ports:
+      - "7777:7777"
+    environment:
+      POSTGRES_HOST: postgres-youtube-parser
+    depends_on:
+      - postgres-youtube-parser
